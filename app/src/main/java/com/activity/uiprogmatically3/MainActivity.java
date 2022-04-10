@@ -3,6 +3,7 @@ package com.activity.uiprogmatically3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -14,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-import static android.graphics.Color.GREEN;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout secondeditText = new LinearLayout(this);
         secondeditText.setOrientation(LinearLayout.HORIZONTAL);
         EditText eteditText = new EditText(this);
-        eteditText.setText("Edit Text");
+        eteditText.setHint("Edit Text");
         eteditText.setGravity(Gravity.LEFT);
         eteditText.setWidth(1000);
         secondeditText.addView(eteditText);
@@ -121,13 +122,28 @@ public class MainActivity extends AppCompatActivity {
         });
         datePickerLayout.addView(dateEditText);
 
+        //for time picker
         LinearLayout timePickerLayout=new LinearLayout(this);
-        EditText timePicker=new EditText(this);
-        timePicker.setHint("Time");
-        timePicker.setWidth(1000);
-        timePickerLayout.addView(timePicker);
+        EditText ettimePicker=new EditText(this);
+        ettimePicker.setHint("Time");
+        ettimePicker.setWidth(1000);
 
+        ettimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //method for time picker
+                TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
 
+                        ettimePicker.setText(hourOfDay + ":" + minutes);
+                    }
+                }, 0, 0, false);
+                timePickerDialog.show();
+
+            }
+        });
+        timePickerLayout.addView(ettimePicker);
 
         //to display all group view
         mainLayout.addView(firsttextView);
@@ -138,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         mainLayout.addView(sixthcheckBox);
         mainLayout.addView(seventhcheckBox);
         mainLayout.addView(eighthRadioButton);
-//        mainLayout.addView(secondRadioButton);
         mainLayout.addView(datePickerLayout);
         mainLayout.addView(timePickerLayout);
 
